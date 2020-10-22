@@ -6,7 +6,7 @@ server {
 
 server {
     listen       80;
-    server_name  ${CVAT_HOST};
+    server_name  localhost;
 
     proxy_pass_header       X-CSRFToken;
     proxy_set_header        Host $http_host;
