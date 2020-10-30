@@ -32,7 +32,7 @@ services:
 
   cvat:
     container_name: cvat
-    image: frederikflint/cvat:cvat-v3
+    image: annomatepocacr.azurecr.io/cvat/server
     restart: always
     depends_on:
       - cvat_redis
@@ -61,7 +61,7 @@ services:
 
   cvat_ui:
     container_name: cvat_ui
-    image: frederikflint/cvat:ui-v3
+    image: annomatepocacr.azurecr.io/cvat/ui
     restart: always
     build:
       context: .
@@ -81,7 +81,7 @@ services:
 
   cvat_proxy:
     container_name: cvat_proxy
-    image: frederikflint/cvat:proxy-v3
+    image: annomatepocacr.azurecr.io/cvat/proxy
     build:
       context: .
       dockerfile: Dockerfile.proxy
@@ -90,7 +90,7 @@ services:
       - cvat
       - cvat_ui
     environment:
-      CVAT_HOST: cvatthreeffl.azurewebsites.net
+      CVAT_HOST: annomate.azurewebsites.net
     ports:
       - "80:80"
 
