@@ -6,4 +6,4 @@ envsubst '$CVAT_HOST' \
 > /etc/nginx/conf.d/default.conf
 
 # Start server
-nginx -g 'daemon off;'
+while :; do sleep 6h; nginx -s reload; done & nginx -g "daemon off;"

@@ -1,0 +1,82 @@
+{​
+                "type": "Microsoft.Compute/virtualMachines",
+                "apiVersion": "2019-07-01",
+                "name": "[parameters('virtualMachines_annomate_name')]",
+                "location": "westeurope",
+                "dependsOn": [
+                    "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_annomate28_name'))]"
+                ],
+                "zones": [
+                    "1"
+                ],
+                "properties": {​
+                    "hardwareProfile": {​
+                        "vmSize": "Standard_D2s_v3"
+                    }​,
+                    "storageProfile": {​
+                        "imageReference": {​
+                            "publisher": "Canonical",
+                            "offer": "UbuntuServer",
+                            "sku": "18.04-LTS",
+                            "version": "latest"
+                        }​,
+                        "osDisk": {​
+                            "osType": "Linux",
+                            "name": "[concat(parameters('virtualMachines_annomate_name'), '_disk1_91c6f63bd94b46acbec4e89c4a4a529f')]",
+                            "createOption": "FromImage",
+                            "caching": "ReadWrite",
+                            "managedDisk": {​
+                                "storageAccountType": "Premium_LRS",
+                                "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachines_annomate_name'), '_disk1_91c6f63bd94b46acbec4e89c4a4a529f'))]"
+                            }​,
+                            "diskSizeGB": 30
+                        }​,
+                        "dataDisks": [
+                            {​
+                                "lun": 0,
+                                "name": "[concat(parameters('virtualMachines_annomate_name'), 'disk')]",
+                                "createOption": "Attach",
+                                "caching": "ReadWrite",
+                                "writeAcceleratorEnabled": false,
+                                "managedDisk": {​
+                                    "storageAccountType": "Premium_LRS",
+                                    "id": "[parameters('disks_annomatedisk_externalid')]"
+                                }​,
+                                "diskSizeGB": 4,
+                                "toBeDetached": false
+                            }​
+                        ]
+                    }​,
+                    "osProfile": {​
+                        "computerName": "[parameters('virtualMachines_annomate_name')]",
+                        "adminUsername": "azureuser",
+                        "linuxConfiguration": {​
+                            "disablePasswordAuthentication": true,
+                            "ssh": {​
+                                "publicKeys": [
+                                    {​
+                                        "path": "/home/azureuser/.ssh/authorized_keys",
+                                        "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDBuuzz+rkP7AyGm8DM+W+8InF\r\nL9uCria+TC1d5Bfnx892yEN3eVDnXBjHSYJLzp8V9Gn8aDb2zjSFGTZj5DQs3ui8\r\nsiqtKFIjBYz03m1jb7XYj6Nq6QOCjfnTRhm5MtMMVwpt4Ya2oSMVb4sRzFy2rG8i\r\nrRwKDpCEeQKWWCHtSK0EtgWGccmhYdn7WdoV98aYwrJuXLp+d8m8uq/WiOgm7hRN\r\n9SCngGpmKZhP2nAQNRvstAn+cAqlepuDj4Fc9fQX50WEGGHCQlpK1vV6Zb2mlJLK\r\n/y3aCKN0E5bY2cM8Nmu+ucsQRv645r6WlO0iAP0aG+FlC+ZLtB+OVx20qMvSluxa\r\n5lajwhIre8ejVv7b0qaYslc3FXNmmSot5cAdZb7lJHPxKTj1Xb+qqG1sQCk4VF+9\r\nm6VVGodNIMZmmt3xQrxCv2qcI6ZizWDTyACB+bOnvzOCus3uCRCKkKH5DuYvJYT1\r\nYUq+Mlb7T9AwA+Db/pcppeXVa7G5j0cHFmxJOBM= generated-by-azure\r\n"
+                                    }​
+                                ]
+                            }​,
+                            "provisionVMAgent": true
+                        }​,
+                        "secrets": [],
+                        "allowExtensionOperations": true,
+                        "requireGuestProvisionSignal": true
+                    }​,
+                    "networkProfile": {​
+                        "networkInterfaces": [
+                            {​
+                                "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_annomate28_name'))]"
+                            }​
+                        ]
+                    }​,
+                    "diagnosticsProfile": {​
+                        "bootDiagnostics": {​
+                            "enabled": true
+                        }​
+                    }​
+                }​
+            }​
